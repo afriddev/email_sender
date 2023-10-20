@@ -1,6 +1,15 @@
-## [1.2.3] - 2023-10-05
+## [1.3.1] - 2023-10-20
 ### Changed
+- decreased dart min sdk version
+
+## [1.2.7] - 2023-10-05
+### Added
+- improved performance
+
+## [1.2.3] - 2023-10-05
+### Fixed
 - removed bugs
+### Added
 - improved quality of code
 
 ## [1.1.4] - 2023-09-13

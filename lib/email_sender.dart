@@ -16,13 +16,15 @@
 -------------------------------------------------------------
  */
 library email_sender;
+
 export 'src/emailsender_core.dart';
+
 ///helpemail class
-class Email{
+class Email {
   ///emailSender Help Section Start
-  void help(){
+  void help() {
     ///help variable
-  var help = """  
+    var help = """  
 
 ------------------------------------------------------------
 |               author  : shaik afrid                      |
@@ -59,11 +61,7 @@ class Email{
   
 
 """;
-  print(help);
-
-
+    print(help);
   }
   //emailSender Help Section End
-  
-
 }
