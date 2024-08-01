@@ -1,3 +1,9 @@
+## [1.4.7] - 2024-8-1
+### Improved
+- Minimized api response time from 1000ms to 0ms
+### Changed
+- Improved documentation of code 
+
 ## [1.3.1] - 2023-10-20
 ### Changed
 - decreased dart min sdk version
