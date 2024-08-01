@@ -1,4 +1,4 @@
-## [1.4.7] - 2024-8-1
+## [1.4.2] - 2024-8-1
 ### Improved
 - Minimized api response time from 1000ms to 0ms
 ### Changed
