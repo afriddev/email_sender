@@ -23,7 +23,7 @@ export 'src/emailsender_core.dart';
 class Email {
   void help() {
     ///help variable
-    var help = """  
+    var help = """
 
 ------------------------------------------------------------
 |               author  : shaik afrid                      |
