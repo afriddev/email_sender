@@ -3,10 +3,10 @@ import 'package:requests/requests.dart';
 ///main class
 class EmailSender {
   ///main server url
-  final String server = "https://sendemail.cyclic.app/";
+  final String server = "freeemailapi.vercel.app";
 
   ///emailAPI website url
-  final String url = "https://sendemail.cyclic.app/sendEmail/";
+  final String url = "freeemailapi.vercel.app/sendEmail/";
 
   /// list of error codes fromm server
   List errorCodes = [
@@ -16,17 +16,9 @@ class EmailSender {
     "passkeyRequired",
     "serverError"
   ];
-  //var otp = Random().nextInt(999999).toString().padLeft(6,'0');
 
-  //initalize emailSender section start
-  /*
-  
-  */
-  //initalize emailSender section end
-
-  ///check errorCode is present in errorCode section start
+  ///check errorCode is present in errorCode 
   checkErrorCode(message) {
-    ///initialize i
     int i = 0;
     while (i < errorCodes.length) {
       if (message == errorCodes[i]) {
@@ -37,9 +29,7 @@ class EmailSender {
     }
   }
 
-  //check errorCode is present in errorCode section end
-
-  ///check serevr is running or not section start
+  ///check serevr is running or not 
   checkServer() async {
     ///response
     var response = await Requests.get(server);
@@ -54,7 +44,6 @@ class EmailSender {
     }
   }
 
-  //check server is running or not section end
   ///details server method secion start
   details() async {
     try {
@@ -69,17 +58,15 @@ class EmailSender {
       return {"message": "somethingWrong"};
     }
   }
-  //details server method end
 
-  ///send default crendentials to provided email section start
+  ///send default crendentials to provided email 
   send(String toEmail) async {
     try {
       if (await checkServer()) {
         if (checkEmail(toEmail)) {
           ///response
           var response = await Requests.post(url, json: {"toEmail": toEmail});
-
-          ///check fo rerror code
+          ///check for error code
           var checkErrorCodeIsPresentOrNot =
               checkErrorCode(response.json()["message"])["isThere"];
           if (response.json()["message"] == "emailSendSuccess") {
@@ -99,9 +86,8 @@ class EmailSender {
       return {"message": "somethingWrong"};
     }
   }
-  //send default crendentials to provided email section start
 
-  ///sendOtp and all are  default crendentials to provided email section start
+  ///sendOtp and all are  default crendentials to provided email 
   sendOtp(String toEmail, int otp) async {
     try {
       if (await checkServer()) {
@@ -111,7 +97,6 @@ class EmailSender {
             "toEmail": toEmail,
             "body": "Your Verification Code IS $otp"
           });
-
           ///check error code is present or not
           var checkErrorCodeIsPresentOrNot =
               checkErrorCode(response.json()["message"])["isThere"];
@@ -133,20 +118,17 @@ class EmailSender {
     }
   }
 
-  //sendOtp section end
-  ///send Custom Email with parameters section start
+  ///send Custom Email with parameters 
   sendMessage(String toEmail, String title, String subject, String body) async {
     try {
       if (await checkServer()) {
         if (checkEmail(toEmail)) {
-          ///response
           var response = await Requests.post(url, json: {
             "toEmail": toEmail,
             "title": title,
             "subject": subject,
             "body": body
           });
-
           ///check error code is present or not
           var checkErrorCodeIsPresentOrNot =
               checkErrorCode(response.json()["message"])["isThere"];
@@ -168,9 +150,8 @@ class EmailSender {
     }
   }
 
-  //send Custom Email With parameters section end
 
-  ///send custom Email With Custom Email And Passkey section start
+  ///send custom Email With Custom Email And Passkey 
   customMessage(String fromEmail, String passkey, String toEmail, String title,
       String subject, String body) async {
     try {
@@ -185,7 +166,6 @@ class EmailSender {
             "subject": subject,
             "body": body
           });
-
           ///check error code is present or not
           var checkErrorCodeIsPresentOrNot =
               checkErrorCode(response.json()["message"])["isThere"];
@@ -206,9 +186,8 @@ class EmailSender {
       return {"message": "somethingWrong"};
     }
   }
-  //Send Custom Email With Custom Email And Passkey section end
 
-  ///check email is valid or not section start
+  ///check email is valid or not 
   bool checkEmail(String email) {
     ///returns true when email is valid else false
     final bool emailValid = RegExp(
@@ -216,5 +195,4 @@ class EmailSender {
         .hasMatch(email);
     return emailValid;
   }
-  //check email is valid or not section end
 }

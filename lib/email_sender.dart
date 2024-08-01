@@ -21,7 +21,6 @@ export 'src/emailsender_core.dart';
 
 ///helpemail class
 class Email {
-  ///emailSender Help Section Start
   void help() {
     ///help variable
     var help = """  
@@ -63,5 +62,4 @@ class Email {
 """;
     print(help);
   }
-  //emailSender Help Section End
 }
