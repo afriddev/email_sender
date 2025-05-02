@@ -1,7 +1,7 @@
 name: email_sender
 description: Email Sender simplifies email integration in Flutter using this package.
-version: 1.4.2
-homepage: https://github.com/afriddev
+version: 1.5.1
+homepage: https://afriddev.vercel.app/
 repository: https://github.com/afriddev/email_sender
 
 environment:

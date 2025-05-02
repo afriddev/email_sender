@@ -1,3 +1,11 @@
+## [1.5.1] - 2025-05-02
+### Changed
+- Updated README with clearer usage examples and formatting.
+- Enhanced code readability for better maintenance.
+
+### Improved
+- Improved performance through optimized internal logic and reduced redundant operations.
+
 ## [1.4.2] - 2024-8-1
 ### Improved
 - Minimized api response time from 1000ms to 0ms

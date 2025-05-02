@@ -1,68 +1,125 @@
+# 📧 Email Sender
 
+**Email Sender** simplifies email integration in Flutter apps. It enables sending emails, OTP verification, and custom messages with ease — perfect for enhancing your app's communication features.
 
+---
 
-# Email sender
-Email Sender simplifies email integration in Flutter, enabling users to send emails, facilitate OTP verification,  Enhance your app's email functionality effortlessly.
+## ✨ Features
 
-#### Usage
+- Send simple emails
+- Send OTP for verification
+- Send custom messages (title, subject, body)
+- Use your own email credentials
+- Helper documentation method
+
+---
+
+## 🚀 Installation
+
+Add the package using:
+
+```bash
+flutter pub add email_sender
 ```
+
+Or manually add it to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  email_sender: ^1.5.1
+```
+
+Then run:
+
+```bash
+flutter pub get
+```
+
+---
+
+## 📦 Import
+
+```dart
 import 'package:email_sender/email_sender.dart';
 ```
-#### Example
 
+---
 
-⭐ **Class Initialization**
+## 🧪 Example
+
+### ✅ Initialization
+
 ```dart
- EmailSender eamilsender = EmailSender();
+EmailSender emailsender = EmailSender();
 ```
-⭐ **Send Method**
+
+### 📤 Send Email
+
 ```dart
-void main() async{
-    //Initialize emailSender 
-    EmailSender emailsender = EmailSender();
-    //Enter your email in send method
-    var response = await emailsender.send("toemail@gmail.com");
-    print(response["message"]);
+void main() async {
+  EmailSender emailsender = EmailSender();
+  var response = await emailsender.send("toemail@gmail.com");
+  print(response["message"]);
 }
-``` 
-####  methods
-
-⭐ **SendOtp**
-```dart
-    EmailSender emailsender = EmailSender();
-    var response = await emailsender.sendOtp("toemail@gmail.com",123456);
-
 ```
-⭐ **Sendmessage**
+
+---
+
+## 📚 Methods
+
+### 🔹 `sendOtp`
 
 ```dart
-    EmailSender emailsender = EmailSender();
-    var response = await emailsender.sendMessage("toemail@gmail.com","title","subject","body");
-
+EmailSender emailsender = EmailSender();
+var response = await emailsender.sendOtp("toemail@gmail.com", 123456);
 ```
-⭐ **Custommessage**
+
+### 🔹 `sendMessage`
 
 ```dart
-    EmailSender custom = EmailSender("fromemail@gmail.com","passkey","toemail@gmail.com","title","subject","body");
-    var response = await emailsender.customMessage();
+EmailSender emailsender = EmailSender();
+var response = await emailsender.sendMessage(
+  "toemail@gmail.com",
+  "Your Title",
+  "Your Subject",
+  "Your message body here",
+);
+```
 
-``` 
-⭐ **Help**
+### 🔹 `customMessage`
 
 ```dart
-    Email emailsender = Email();
-    email.help();
+EmailSender custom = EmailSender(
+  "fromemail@gmail.com",
+  "passkey",
+  "toemail@gmail.com",
+  "Custom Title",
+  "Custom Subject",
+  "Custom Body"
+);
+var response = await custom.customMessage();
+```
 
-``` 
-#### Authors
+### 🔹 `help`
 
-- [AFRID SHAIK](https://www.github.com/afriddev)
+```dart
+Email emailsender = Email();
+emailsender.help();
+```
 
+## 📖 Generate app password from here
 
+- [Click Here](https://support.google.com/accounts/answer/185833?hl=en)
 
-#### Getting Started
+---
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+## 👨‍💻 Author
 
-For help on editing plugin code, view the [documentation](https://flutter.io/developing-packages/#edit-plugin-package).
+- [Shaik Afrid](https://afriddev.vercel.app)
+
+---
+
+## 📖 Getting Started with Flutter
+
+- [Flutter Documentation](https://flutter.dev/docs)
+- [Developing Flutter Packages](https://flutter.dev/docs/development/packages-and-plugins/developing-packages)
