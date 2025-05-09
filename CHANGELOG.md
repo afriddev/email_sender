@@ -1,3 +1,19 @@
+# Changelog
+
+## [2.0.0] - 2025-05-09
+
+### ✨ Added
+- Support for sending **raw HTML strings** in emails
+
+### 🛠 Changed
+- Updated `README.md` to showcase HTML preview and usage
+- Cleaned up method documentation and added examples
+
+### 🔧 Breaking Changes
+- None, all previous methods remain supported
+
+
+
 ## [1.5.1] - 2025-05-02
 ### Changed
 - Updated README with clearer usage examples and formatting.

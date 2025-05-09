@@ -1,22 +1,20 @@
 # 📧 Email Sender
 
-**Email Sender** simplifies email integration in Flutter apps. It enables sending emails, OTP verification, and custom messages with ease — perfect for enhancing your app's communication features.
+[![Pub Version](https://img.shields.io/pub/v/email_sender.svg)](https://pub.dev/packages/email_sender)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+> ⚡ **Now with HTML Support!** Easily send rich HTML emails with full styling support directly from your Flutter app.
+
+<img src="assets/html_email_preview.png" alt="HTML Email Preview" style="width:100%; max-height:300px; object-fit:contain;">
+<p align="center"><i>This is how your HTML email could look!</i></p>
+
+**Email Sender** is a powerful and lightweight Flutter package for integrating email functionality directly into your app. Whether it's sending basic emails, OTPs for verification, or beautifully formatted HTML messages — this package has you covered.
 
 ---
 
-## ✨ Features
+## 📦 Installation
 
-- Send simple emails
-- Send OTP for verification
-- Send custom messages (title, subject, body)
-- Use your own email credentials
-- Helper documentation method
-
----
-
-## 🚀 Installation
-
-Add the package using:
+Add the package using the Flutter CLI:
 
 ```bash
 flutter pub add email_sender
@@ -26,7 +24,7 @@ Or manually add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  email_sender: ^1.5.1
+  email_sender: ^2.0.0
 ```
 
 Then run:
@@ -37,15 +35,19 @@ flutter pub get
 
 ---
 
-## 📦 Import
+## 🚀 Features
 
-```dart
-import 'package:email_sender/email_sender.dart';
-```
+- ✅ Send plain emails
+- 🔐 OTP-based email verification
+- 📝 Custom messages (title, subject, body)
+- 💡 Directly send raw HTML strings
+- 📄 Send HTML templates (prebuilt or custom)
+- 🔑 Use your own email credentials (e.g., Gmail App Password)
+- 🛠️ Developer-friendly API with helper methods
 
 ---
 
-## 🧪 Example
+## 🧪 Usage Examples
 
 ### ✅ Initialization
 
@@ -53,31 +55,22 @@ import 'package:email_sender/email_sender.dart';
 EmailSender emailsender = EmailSender();
 ```
 
-### 📤 Send Email
+### 📤 Send a Basic Email
 
 ```dart
-void main() async {
-  EmailSender emailsender = EmailSender();
-  var response = await emailsender.send("toemail@gmail.com");
-  print(response["message"]);
-}
+var response = await emailsender.send("toemail@gmail.com");
+print(response["message"]);
 ```
 
----
-
-## 📚 Methods
-
-### 🔹 `sendOtp`
+### 🔐 Send OTP
 
 ```dart
-EmailSender emailsender = EmailSender();
 var response = await emailsender.sendOtp("toemail@gmail.com", 123456);
 ```
 
-### 🔹 `sendMessage`
+### 📝 Send Custom Message
 
 ```dart
-EmailSender emailsender = EmailSender();
 var response = await emailsender.sendMessage(
   "toemail@gmail.com",
   "Your Title",
@@ -86,40 +79,48 @@ var response = await emailsender.sendMessage(
 );
 ```
 
-### 🔹 `customMessage`
+### 💡 Send HTML String
 
 ```dart
-EmailSender custom = EmailSender(
+var response = await emailsender.sendHtml(
+  "toemail@gmail.com",
+  "<h1>Welcome!</h1><p>This is an HTML email.</p>",
+);
+```
+
+### 📄 Send HTML Template
+
+```dart
+EmailSender htmlSender = EmailSender(
   "fromemail@gmail.com",
   "passkey",
   "toemail@gmail.com",
-  "Custom Title",
-  "Custom Subject",
-  "Custom Body"
+  "Template Title",
+  "Template Subject",
+  "<h1>HTML Body from Template</h1>"
 );
-var response = await custom.customMessage();
+var response = await htmlSender.customMessage();
 ```
 
-### 🔹 `help`
+---
 
-```dart
-Email emailsender = Email();
-emailsender.help();
-```
+## 📖 App Password Setup (Gmail)
 
-## 📖 Generate app password from here
+> If you're using Gmail, generate an app password to send emails securely.  
+👉 [Generate App Password](https://support.google.com/accounts/answer/185833?hl=en)
 
-- [Click Here](https://support.google.com/accounts/answer/185833?hl=en)
+---
+
+## 📚 Additional Resources
+
+- [Flutter Documentation](https://flutter.dev/docs)
+- [Developing Flutter Packages](https://flutter.dev/docs/development/packages-and-plugins/developing-packages)
 
 ---
 
 ## 👨‍💻 Author
 
-- [Shaik Afrid](https://afriddev.vercel.app)
+**Shaik Afrid**  
+🔗 [Portfolio](https://afriddev.vercel.app)
 
 ---
-
-## 📖 Getting Started with Flutter
-
-- [Flutter Documentation](https://flutter.dev/docs)
-- [Developing Flutter Packages](https://flutter.dev/docs/development/packages-and-plugins/developing-packages)
