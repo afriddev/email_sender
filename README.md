@@ -5,7 +5,11 @@
 
 > ⚡ **Now with HTML Support!** Easily send rich HTML emails with full styling support directly from your Flutter app.
 
-<img src="assets/html_email_preview.png" alt="HTML Email Preview" style="width:100%; max-height:300px; object-fit:contain;">
+
+![Email Sender Banner](https://raw.githubusercontent.com/afriddev/email_sender/main/html_email_preview.png)
+
+[![GitHub](https://img.shields.io/badge/github-@afriddev-blue)](https://www.github.com/afriddev)
+
 <p align="center"><i>This is how your HTML email could look!</i></p>
 
 **Email Sender** is a powerful and lightweight Flutter package for integrating email functionality directly into your app. Whether it's sending basic emails, OTPs for verification, or beautifully formatted HTML messages — this package has you covered.
@@ -24,7 +28,7 @@ Or manually add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  email_sender: ^2.0.0
+  email_sender: ^2.0.1
 ```
 
 Then run:
