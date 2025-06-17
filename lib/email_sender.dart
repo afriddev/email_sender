@@ -19,8 +19,6 @@
 
 library email_sender;
 
-import 'src/emailsender_core.dart'; // ✅ Add this line
-
 /// Help class for Email Sender
 class Email {
   /// Prints help and usage instructions

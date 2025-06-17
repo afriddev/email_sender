@@ -4,6 +4,7 @@ import 'dart:convert';
 /// Main class
 class EmailSender {
   EmailSender();
+
   /// Server URL
   final String server = "https://freeemailapi.vercel.app/";
 
@@ -21,9 +22,9 @@ class EmailSender {
 
   /// Check email format
   bool checkEmail(String email) {
-    final bool emailValid = RegExp(
-      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$"
-    ).hasMatch(email);
+    final bool emailValid =
+        RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$")
+            .hasMatch(email);
     return emailValid;
   }
 
@@ -54,7 +55,8 @@ class EmailSender {
     if (!await checkServer()) return {"message": "serverUnderMaintenance"};
 
     try {
-      final response = await http.post(Uri.parse(url),
+      final response = await http.post(
+        Uri.parse(url),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"toEmail": toEmail}),
       );
@@ -78,12 +80,11 @@ class EmailSender {
     if (!await checkServer()) return {"message": "serverUnderMaintenance"};
 
     try {
-      final response = await http.post(Uri.parse(url),
+      final response = await http.post(
+        Uri.parse(url),
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "toEmail": toEmail,
-          "body": "Your Verification Code IS $otp"
-        }),
+        body: jsonEncode(
+            {"toEmail": toEmail, "body": "Your Verification Code IS $otp"}),
       );
 
       final data = jsonDecode(response.body);
@@ -106,7 +107,8 @@ class EmailSender {
     if (!await checkServer()) return {"message": "serverUnderMaintenance"};
 
     try {
-      final response = await http.post(Uri.parse(url),
+      final response = await http.post(
+        Uri.parse(url),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "toEmail": toEmail,
@@ -130,18 +132,14 @@ class EmailSender {
   }
 
   /// Send with custom credentials
-  Future<Map<String, dynamic>> customMessage(
-      String fromEmail,
-      String passkey,
-      String toEmail,
-      String title,
-      String subject,
-      String body) async {
+  Future<Map<String, dynamic>> customMessage(String fromEmail, String passkey,
+      String toEmail, String title, String subject, String body) async {
     if (!checkEmail(toEmail)) return {"message": "wrongEmail"};
     if (!await checkServer()) return {"message": "serverUnderMaintenance"};
 
     try {
-      final response = await http.post(Uri.parse(url),
+      final response = await http.post(
+        Uri.parse(url),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "fromEmail": fromEmail,
