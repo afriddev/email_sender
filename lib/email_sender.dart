@@ -19,7 +19,7 @@
 
 library email_sender;
 
-export 'src/emailsender_core.dart';
+import 'src/emailsender_core.dart'; // ✅ Add this line
 
 /// Help class for Email Sender
 class Email {

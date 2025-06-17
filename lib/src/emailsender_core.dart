@@ -1,15 +1,17 @@
-import 'package:requests/requests.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-///main class
+/// Main class
 class EmailSender {
-  ///main server url
-  final String server = "freeemailapi.vercel.app";
+  EmailSender();
+  /// Server URL
+  final String server = "https://freeemailapi.vercel.app/";
 
-  ///emailAPI website url
-  final String url = "freeemailapi.vercel.app/sendEmail/";
+  /// Send Email Endpoint
+  final String url = "https://freeemailapi.vercel.app/sendEmail/";
 
-  /// list of error codes fromm server
-  List errorCodes = [
+  /// Error codes list
+  List<String> errorCodes = [
     "wrongEmail",
     "sendEmailFailed",
     "wrongCrendentials",
@@ -17,185 +19,150 @@ class EmailSender {
     "serverError"
   ];
 
-  ///check errorCode is present in errorCode
-  checkErrorCode(message) {
-    int i = 0;
-    while (i < errorCodes.length) {
-      if (message == errorCodes[i]) {
-        return {"isThere": true, "errorCode": errorCodes[i]};
-      } else {
-        return {"isThere": false};
-      }
-    }
-  }
-
-  ///check serevr is running or not
-  checkServer() async {
-    ///response
-    var response = await Requests.get(server);
-
-    if (response.json()["message"]["serverStatus"] == "running") {
-      return true;
-    } else if (response.json()["message"]["serverStatus"] ==
-        "serverUnderMaintenance") {
-      return false;
-    } else {
-      return false;
-    }
-  }
-
-  ///details server method secion start
-  details() async {
-    try {
-      if (await checkServer()) {
-        ///response
-        var response = await Requests.get(server);
-        return {"message": response.json()["message"]};
-      } else {
-        return {"message": "serverUnderMaintenance"};
-      }
-    } catch (e) {
-      return {"message": "somethingWrong"};
-    }
-  }
-
-  ///send default crendentials to provided email
-  send(String toEmail) async {
-    try {
-      if (await checkServer()) {
-        if (checkEmail(toEmail)) {
-          ///response
-          var response = await Requests.post(url, json: {"toEmail": toEmail});
-
-          ///check for error code
-          var checkErrorCodeIsPresentOrNot =
-              checkErrorCode(response.json()["message"])["isThere"];
-          if (response.json()["message"] == "emailSendSuccess") {
-            return response.json();
-          } else if (checkErrorCodeIsPresentOrNot) {
-            return {"message": checkErrorCodeIsPresentOrNot["erroCode"]};
-          } else {
-            return {"message": "somethingWrong"};
-          }
-        } else {
-          return {"message": "wrongEmail"};
-        }
-      } else {
-        return {"message": "serverUnderMaintenance"};
-      }
-    } catch (e) {
-      return {"message": "somethingWrong"};
-    }
-  }
-
-  ///sendOtp and all are  default crendentials to provided email
-  sendOtp(String toEmail, int otp) async {
-    try {
-      if (await checkServer()) {
-        if (checkEmail(toEmail)) {
-          ///response
-          var response = await Requests.post(url, json: {
-            "toEmail": toEmail,
-            "body": "Your Verification Code IS $otp"
-          });
-
-          ///check error code is present or not
-          var checkErrorCodeIsPresentOrNot =
-              checkErrorCode(response.json()["message"])["isThere"];
-          if (response.json()["message"] == "emailSendSuccess") {
-            return response.json();
-          } else if (checkErrorCodeIsPresentOrNot) {
-            return {"message": checkErrorCodeIsPresentOrNot["erroCode"]};
-          } else {
-            return {"message": "somethingWrong"};
-          }
-        } else {
-          return {"message": "wrongEmail"};
-        }
-      } else {
-        return {"message": "serverUnderMaintenance"};
-      }
-    } catch (e) {
-      return {"message": "somethingWrong"};
-    }
-  }
-
-  ///send Custom Email with parameters
-  sendMessage(String toEmail, String title, String subject, String body) async {
-    try {
-      if (await checkServer()) {
-        if (checkEmail(toEmail)) {
-          var response = await Requests.post(url, json: {
-            "toEmail": toEmail,
-            "title": title,
-            "subject": subject,
-            "body": body
-          });
-
-          ///check error code is present or not
-          var checkErrorCodeIsPresentOrNot =
-              checkErrorCode(response.json()["message"])["isThere"];
-          if (response.json()["message"] == "emailSendSuccess") {
-            return response.json();
-          } else if (checkErrorCodeIsPresentOrNot) {
-            return {"message": checkErrorCodeIsPresentOrNot["erroCode"]};
-          } else {
-            return {"message": "somethingWrong"};
-          }
-        } else {
-          return {"message": "wrongEmail"};
-        }
-      } else {
-        return {"message": "serverUnderMaintenance"};
-      }
-    } catch (e) {
-      return {"message": "somethingWrong"};
-    }
-  }
-
-  ///send custom Email With Custom Email And Passkey
-  customMessage(String fromEmail, String passkey, String toEmail, String title,
-      String subject, String body) async {
-    try {
-      if (await checkServer()) {
-        if (checkEmail(toEmail)) {
-          ///response
-          var response = await Requests.post(url, json: {
-            "fromEmail": fromEmail,
-            "passkey": passkey,
-            "toEmail": toEmail,
-            "title": title,
-            "subject": subject,
-            "body": body
-          });
-
-          ///check error code is present or not
-          var checkErrorCodeIsPresentOrNot =
-              checkErrorCode(response.json()["message"])["isThere"];
-          if (response.json()["message"] == "emailSendSuccess") {
-            return response.json();
-          } else if (checkErrorCodeIsPresentOrNot) {
-            return {"message": checkErrorCodeIsPresentOrNot["erroCode"]};
-          } else {
-            return {"message": "somethingWrong"};
-          }
-        } else {
-          return {"message": "wrongEmail"};
-        }
-      } else {
-        return {"message": "serverUnderMaintenance"};
-      }
-    } catch (e) {
-      return {"message": "somethingWrong"};
-    }
-  }
-
-  ///check email is valid or not
+  /// Check email format
   bool checkEmail(String email) {
-    ///returns true when email is valid else false
     final bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
+      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$"
+    ).hasMatch(email);
     return emailValid;
+  }
+
+  /// Check server status
+  Future<bool> checkServer() async {
+    try {
+      final response = await http.get(Uri.parse(server));
+      final data = jsonDecode(response.body);
+      final status = data["message"]["serverStatus"];
+
+      return status == "running";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Check error code presence
+  Map<String, dynamic> checkErrorCode(String message) {
+    if (errorCodes.contains(message)) {
+      return {"isThere": true, "errorCode": message};
+    }
+    return {"isThere": false};
+  }
+
+  /// Send default email
+  Future<Map<String, dynamic>> send(String toEmail) async {
+    if (!checkEmail(toEmail)) return {"message": "wrongEmail"};
+    if (!await checkServer()) return {"message": "serverUnderMaintenance"};
+
+    try {
+      final response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"toEmail": toEmail}),
+      );
+
+      final data = jsonDecode(response.body);
+      final code = data["message"];
+
+      if (code == "emailSendSuccess") return data;
+      final error = checkErrorCode(code);
+      return error["isThere"]
+          ? {"message": error["errorCode"]}
+          : {"message": "somethingWrong"};
+    } catch (e) {
+      return {"message": "somethingWrong"};
+    }
+  }
+
+  /// Send OTP email
+  Future<Map<String, dynamic>> sendOtp(String toEmail, int otp) async {
+    if (!checkEmail(toEmail)) return {"message": "wrongEmail"};
+    if (!await checkServer()) return {"message": "serverUnderMaintenance"};
+
+    try {
+      final response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "toEmail": toEmail,
+          "body": "Your Verification Code IS $otp"
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+      final code = data["message"];
+
+      if (code == "emailSendSuccess") return data;
+      final error = checkErrorCode(code);
+      return error["isThere"]
+          ? {"message": error["errorCode"]}
+          : {"message": "somethingWrong"};
+    } catch (e) {
+      return {"message": "somethingWrong"};
+    }
+  }
+
+  /// Send custom message
+  Future<Map<String, dynamic>> sendMessage(
+      String toEmail, String title, String subject, String body) async {
+    if (!checkEmail(toEmail)) return {"message": "wrongEmail"};
+    if (!await checkServer()) return {"message": "serverUnderMaintenance"};
+
+    try {
+      final response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "toEmail": toEmail,
+          "title": title,
+          "subject": subject,
+          "body": body
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+      final code = data["message"];
+
+      if (code == "emailSendSuccess") return data;
+      final error = checkErrorCode(code);
+      return error["isThere"]
+          ? {"message": error["errorCode"]}
+          : {"message": "somethingWrong"};
+    } catch (e) {
+      return {"message": "somethingWrong"};
+    }
+  }
+
+  /// Send with custom credentials
+  Future<Map<String, dynamic>> customMessage(
+      String fromEmail,
+      String passkey,
+      String toEmail,
+      String title,
+      String subject,
+      String body) async {
+    if (!checkEmail(toEmail)) return {"message": "wrongEmail"};
+    if (!await checkServer()) return {"message": "serverUnderMaintenance"};
+
+    try {
+      final response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "fromEmail": fromEmail,
+          "passkey": passkey,
+          "toEmail": toEmail,
+          "title": title,
+          "subject": subject,
+          "body": body
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+      final code = data["message"];
+
+      if (code == "emailSendSuccess") return data;
+      final error = checkErrorCode(code);
+      return error["isThere"]
+          ? {"message": error["errorCode"]}
+          : {"message": "somethingWrong"};
+    } catch (e) {
+      return {"message": "somethingWrong"};
+    }
   }
 }

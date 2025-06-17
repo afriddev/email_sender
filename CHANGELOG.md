@@ -1,4 +1,18 @@
 # Changelog
+## [2.1.0] - 2025-06-17
+
+### ✨ Added
+- Full migration from `requests` package to `http` package (`http 1.4.0`) for better compatibility with modern Flutter projects
+
+### 🛠 Changed
+- Updated all internal API calls to use `http` instead of `requests`
+- Improved consistency in request headers and error handling
+
+### ✅ Compatibility
+- Compatible with Flutter SDKs requiring `http 1.4.0` and higher
+- Resolves version conflict issues with newer projects using latest `http` package
+
+
 
 ## [2.0.1] - 2025-05-09
 
